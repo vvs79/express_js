@@ -4,10 +4,12 @@ var router = express.Router();
 const cookieParser = require('cookie-parser');
 const cookieValidator = require('./cookieValidator');
 
+// const app = require('../middleware/index');
+
 
 // middleware that is specific to this router
 const timeLog = (req, res, next) => {
-  console.log('Time: ', Date.now());
+  console.log('router index Time: ', Date.now());
   next();
 }
 router.use(timeLog);
@@ -26,8 +28,7 @@ async function validateCookies (req, res, next) {
 }
 
 router.use(cookieParser());
-
-router.use(validateCookies);
+// router.use(validateCookies);
 
 
 /* GET home page. */

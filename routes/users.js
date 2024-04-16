@@ -6,6 +6,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.get('/:id', function(req, res, next) {
+  res.send('Got user by id');
+});
+
 router.put('/:id', (req, res) => {
   res.send('Got a PUT request at /user');
 });
