@@ -1,3 +1,5 @@
+// run $ DEBUG=expressjs:* npm start
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,6 +11,7 @@ var usersRouter = require('./routes/users');
 
 var mw = require('./middleware/index');
 var mw2 = require('./middleware2/index');
+var indErr = require('./error/index');
 
 var app = express();
 
@@ -27,19 +30,19 @@ app.use(cookieParser());
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', [indexRouter, mw, mw2]);
+app.use('/', [indexRouter, mw, mw2, indErr]);
 app.use('/users', usersRouter);
 // app.use('/', mw);
 // app.use('/', mw2);
 
 
 app.use((req, res, next) => {
-  res.status(404).send("Sorry can't find that!");
+  res.status(404).send("404 Sorry can't find that!");
 });
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send('500 Something broke!');
 });
 
 // // catch 404 and forward to error handler
